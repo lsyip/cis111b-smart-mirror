@@ -11,9 +11,9 @@ import numpy as np
 webcam = cv2.VideoCapture(0)
 
 # Load user pictures and encode it
-obama = face_recognition.load_image_file("images/barack_obama.jpg")
+obama = face_recognition.load_image_file("python/images/barack_obama.jpg")
 obama_encoding = face_recognition.face_encodings(obama)[0]
-lynn = face_recognition.load_image_file("images/lynn_yip.jpg")
+lynn = face_recognition.load_image_file("python/images/lynn_yip.jpg")
 lynn_encoding = face_recognition.face_encodings(lynn)[0]
 
 # Array of known encodings and names
