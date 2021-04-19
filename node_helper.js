@@ -13,15 +13,19 @@ module.exports = NodeHelper.create({
     // Returns identity of user via webcam
     getName: function() {
         const self = this;
-        const fileName = 'setup.py';
-        console.log('Running ' + fileName);
+        const fileName = 'setup.py';  //The file that we want to run
+        console.log('Running ' + fileName);   // Log event
+
+        //Create new PythonShell, use that to run the file
         const faceRecPyShell = new PythonShell(fileName, {mode: 'json', scriptPath: 'modules/face-rec-module/python'});
 
+        //TODO: Figure out what this does
         faceRecPyShell.on('message', function (message) {
                 if (message['type'] == 'data') {
                     self.sendSocketNotification('DATA', message);
                 }
         });
+
 
         faceRecPyShell.end(function (err) {
                 if (err) throw err;

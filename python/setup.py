@@ -26,7 +26,7 @@ face_encodings = []
 face_names = []
 process_this_frame = True
 
-while True:
+while True:   #infinite loop runs the webcam (replace with session timer)
     # Get single frame of video
     ret, frame = webcam.read()
 
@@ -56,7 +56,7 @@ while True:
 
             # Or instead, use the known face with the smallest distance to the new face
             face_distances = face_recognition.face_distance(known_encodings, face_encoding)
-            best_match_index = np.argmin(face_distances)
+            best_match_index = np.argmin(face_distances)   #numpy argmin() method returns index of min values
             if matches[best_match_index]:
                 name = known_names[best_match_index]
 
