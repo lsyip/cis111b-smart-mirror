@@ -29,6 +29,9 @@ if(len(face_locations) == 0):
     print("No Face Detected")
 face_encodings = face_recognition.face_encodings(output, face_locations)
 
+# Variable for unlocking solenoid
+checkLock = 0
+
 # Check to see if the current person in the frame is the user
 for face_encoding in face_encodings:
     match = face_recognition.compare_faces([user_face_encoding], face_encoding)
@@ -42,6 +45,7 @@ for face_encoding in face_encodings:
      if match[0]:
         name = "Alex"
         print("Access Granted. \nHello {}!".format(name))
+        checkLock = 1
     else:
         print("Access Denied.\nPlease Validate Fingerprint.")
         #TODO Scan users fingerprint, validate and grant access to compartment,
