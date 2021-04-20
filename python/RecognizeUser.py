@@ -34,12 +34,18 @@ for face_encoding in face_encodings:
     match = face_recognition.compare_faces([user_face_encoding], face_encoding)
     name = ""
 
-    # If the user is in the frame, define the users name
-    if match[0]:
+     """
+     Validate that the user is in the frame and grand access to the compartment.
+     If it's not the user, validate the identity through the fingerprint scanner,
+     otherwise deny access.
+     """
+     if match[0]:
         name = "Alex"
         print("Access Granted. \nHello {}!".format(name))
     else:
-        print("Access Denied")
+        print("Access Denied.\nPlease Validate Fingerprint.")
+        #TODO Scan users fingerprint, validate and grant access to compartment,
+        # Otherwise deny access to compartment.
 
     
 
