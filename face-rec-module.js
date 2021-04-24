@@ -97,7 +97,7 @@ Module.register("face-rec-module", {
 	// payload is a notification dependent data structure, up to you to design between module and node_helper
 	socketNotificationReceived: function(notification, payload) {
 		Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
-		if(notification === "message_from_helper"){
+		if(notification === "face-rec-module output"){
 			this.config.message = payload;
 			// tell mirror runtime that our data has changed,
 			// we will be called back at GetDom() to provide the updated content

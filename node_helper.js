@@ -5,19 +5,14 @@ var PythonShell = require("python-shell");
 
 module.exports = NodeHelper.create({
     start:function(){
-    console.log("Starting module: " + this.name);
+            console.log("Starting module: " + this.name);
     },
 
-    //TODO: sendSocketNotification setup
+    //sendSocketNotification setup: runs the getName() function, which identifies the user
     socketNotificationReceived: function(notification, payload) {
-    		if (notification === 'SET CREDS') {
-    			console.log('Set credential request recieved.');
-    			console.log(payload);
-    			this.setCreds(payload.client_id,payload.client_secret);
-    		};
-    		if (notification === 'GET DATA') {
-    			console.log('Initial run request received.');
-    			this.getData();
+    		if (notification === 'GET NAME') {
+    			console.log('Name request received.');
+    			this.getName();
     		};
     	},
 
@@ -32,7 +27,7 @@ module.exports = NodeHelper.create({
 
         //TODO: Figure out what this does
         faceRecPyShell.on('message', function (message) {
-                if (message['type'] == 'data') {
+                if (message['type'] == 'name') {
                     self.sendSocketNotification('DATA', message);
                 }
         });
@@ -40,8 +35,8 @@ module.exports = NodeHelper.create({
 
         faceRecPyShell.end(function (err) {
                 if (err) throw err;
-                self.sendSocketNotification('UPDATE', 'Finished getting data');
-                console.log('Finished getting data');
+                self.sendSocketNotification('UPDATE', 'Finished getting name');
+                console.log('Finished getting name');
         });
     },
 });
