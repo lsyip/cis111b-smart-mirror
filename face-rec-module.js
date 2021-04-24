@@ -9,7 +9,7 @@
 //TODO: PLACEHOLDER: Module Template by roramirez: https://github.com/roramirez/MagicMirror-Module-Template
 Module.register("face-rec-module", {
 	// define variables used by module, but not in config data
-	userProfile:  "Unknown",
+	userName:  "Unknown",
 
 	// holder for config info from module_name.js
 	config:null,
@@ -31,7 +31,20 @@ Module.register("face-rec-module", {
 
 	start: function(){
 		Log.log(this.name + " is starting!");
+		this.sendSocketNotification("GET NAME", "initial");
+
+		this.fadeSpeed = 500;
+
+		// Update Interval
+		var self = this;
+		setInterval(function() {
+		    self.updateName();
+		}, this.config.update_interval*60*1000);
 	},
+
+    updateName: function() {
+        this.sendSocketNotification("GET NAME", "Update");
+    },
 
 	loaded: function(callback) {
 		Log.log(this.name + " is loaded!");

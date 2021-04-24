@@ -8,10 +8,10 @@ module.exports = NodeHelper.create({
             console.log("Starting module: " + this.name);
     },
 
-    //sendSocketNotification setup: runs the getName() function, which identifies the user
+    //sendSocketNotification runs the getName() function, which identifies the user
     socketNotificationReceived: function(notification, payload) {
     		if (notification === 'GET NAME') {
-    			console.log('Name request received.');
+    			console.log('Initial name request received.');
     			this.getName();
     		};
     	},
