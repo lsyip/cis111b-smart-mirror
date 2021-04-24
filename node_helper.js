@@ -9,11 +9,22 @@ module.exports = NodeHelper.create({
     },
 
     //TODO: sendSocketNotification setup
+    socketNotificationReceived: function(notification, payload) {
+    		if (notification === 'SET CREDS') {
+    			console.log('Set credential request recieved.');
+    			console.log(payload);
+    			this.setCreds(payload.client_id,payload.client_secret);
+    		};
+    		if (notification === 'GET DATA') {
+    			console.log('Initial run request received.');
+    			this.getData();
+    		};
+    	},
 
     // Returns identity of user via webcam
     getName: function() {
         const self = this;
-        const fileName = 'setup.py';  //The file that we want to run
+        const fileName = 'RecognizeUser.py';  //The file that we want to run
         console.log('Running ' + fileName);   // Log event
 
         //Create new PythonShell, use that to run the file

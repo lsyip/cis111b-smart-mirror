@@ -9,8 +9,7 @@
 //TODO: PLACEHOLDER: Module Template by roramirez: https://github.com/roramirez/MagicMirror-Module-Template
 Module.register("face-rec-module", {
 	// define variables used by module, but not in config data
-	some_variable:  true,
-	some_other_variable: "a string",
+	userProfile:  "Unknown",
 
 	// holder for config info from module_name.js
 	config:null,
