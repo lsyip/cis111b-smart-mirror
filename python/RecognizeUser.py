@@ -11,7 +11,7 @@ camera.resolution = (352, 240)
 output = np.empty((240, 352, 3), dtype=np.uint8) # Creates an array  of given dimensions
 
 # Load the picture of the user and learn to recognize it
-user_image = face_recognition.load_image_file("alex1.png")
+user_image = face_recognition.load_image_file("images/lynn_yip.jpg")
 user_face_encoding = face_recognition.face_encodings(user_image)[0]
 
 # Initialize 2 lists for storing face details and encodings
@@ -37,13 +37,13 @@ for face_encoding in face_encodings:
     match = face_recognition.compare_faces([user_face_encoding], face_encoding)
     name = ""
 
-     """
-     Validate that the user is in the frame and grand access to the compartment.
-     If it's not the user, validate the identity through the fingerprint scanner,
-     otherwise deny access.
-     """
-     if match[0]:
-        name = "Alex"
+    """
+    Validate that the user is in the frame and grand access to the compartment.
+    If it's not the user, validate the identity through the fingerprint scanner,
+    otherwise deny access.
+    """
+    if match[0]:
+        name = "Lynn"
         print("Access Granted. \nHello {}!".format(name))
         checkLock = 1
     else:
