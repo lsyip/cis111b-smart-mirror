@@ -88,7 +88,7 @@ Module.register("face-rec-module", {
 
 	// only called if the module header was configured in module config in config.js
 	getHeader: function() {
-		return this.data.header + " Foo Bar";
+		return "Module Header";
 	},
 
 	// messages received from other modules and the system (NOT from your node helper)

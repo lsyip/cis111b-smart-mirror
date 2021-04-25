@@ -23,7 +23,7 @@ module.exports = NodeHelper.create({
         console.log('Running ' + fileName);   // Log event
 
         //Create new PythonShell, use that to run the file
-        const faceRecPyShell = new PythonShell(fileName, {mode: 'json', scriptPath: 'modules/face-rec-module/python'});
+        const {faceRecPyShell} = new PythonShell(fileName, {scriptPath: 'modules/face-rec-module/python'});
 
         //TODO: Figure out what this does
         faceRecPyShell.on('message', function (message) {
