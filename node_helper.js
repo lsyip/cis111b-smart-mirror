@@ -8,13 +8,30 @@ module.exports = NodeHelper.create({
             console.log("Starting module: " + this.name);
     },
 
-    //sendSocketNotification runs the getName() function, which identifies the user
+    //sendSocketNotification processes request
     socketNotificationReceived: function(notification, payload) {
+            if (notification === "SET PROFILE") {
+                console.log('Initial setup request');
+                this.setProfile();
+            }
     		if (notification === 'GET NAME') {
     			console.log('Initial name request received.');
     			this.getName();
     		};
+    		if (notification === 'UPDATE') {
+    		    console.log('Update name request received.');
+    		    this.getName();
+    		}
+
     	},
+
+    // Initial setup
+    setProfile: function() {
+        PythonShell.run('python/setup.py', options, function(err, results) {
+            if (err) throw err;
+            console.log('results: %j', results);
+        });
+    },
 
     // Returns identity of user via webcam
     getName: function() {
@@ -24,10 +41,12 @@ module.exports = NodeHelper.create({
 
         //Create new PythonShell, use that to run the file
         let faceRecPyShell = new PythonShell(fileName, {scriptPath: 'modules/face-rec-module/python'});
+        console.log('Creating new pyShell');
 
         //TODO: Figure out what this does
         faceRecPyShell.on('message', function (message) {
                 if (message['type'] == 'name') {
+                    console.log('')
                     self.sendSocketNotification('DATA', message);
                 }
         });

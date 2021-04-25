@@ -1,14 +1,15 @@
 # This is the first attempt at getting facial recognition working.
 
 # Import necessary modules
-import face_recognition 
+import face_recognition
 import picamera
 import numpy as np
+from .userSetup import getEncodings
 
 # Create a reference to our camera
 camera = picamera.PiCamera()
 camera.resolution = (352, 240)
-output = np.empty((240, 352, 3), dtype=np.uint8) # Creates an array  of given dimensions
+output = np.empty((240, 352, 3), dtype=np.uint8)  # Creates an array  of given dimensions
 
 # Load the picture of the user and learn to recognize it
 user_image = face_recognition.load_image_file("images/lynn_yip.jpg")
@@ -25,16 +26,18 @@ camera.capture(output, format = "rgb")
 face_locations = face_recognition.face_locations(output)
 
 # If you can't read the face, notify the user
-if(len(face_locations) == 0):
+if len(face_locations) == 0:
     print("No Face Detected")
 face_encodings = face_recognition.face_encodings(output, face_locations)
 
 # Variable for unlocking solenoid
 checkLock = 0
+index = 0
 
 # Check to see if the current person in the frame is the user
 for face_encoding in face_encodings:
-    match = face_recognition.compare_faces([user_face_encoding], face_encoding)
+    match = face_recognition.compare_faces([getEncodings()[index]], face_encoding)
+    index += 1
     name = ""
 
     """
@@ -48,8 +51,3 @@ for face_encoding in face_encodings:
         checkLock = 1
     else:
         print("Access Denied.\nPlease Validate Fingerprint.")
-        #TODO Scan users fingerprint, validate and grant access to compartment,
-        # Otherwise deny access to compartment.
-
-    
-

@@ -25,6 +25,22 @@ Module.register("face-rec-module", {
 
 	},
 
+    // Override socket notification handler
+	socketNotificationReceived: function(notification, payload) {
+		if (notification === "GET NAME"){
+			resource = payload['resource'];
+			if (this.inResources(resource)) {
+				this.userData[resource] = payload['values']['data'];
+				this.goals[resource] = payload['values']['goal'];
+				Log.log("Writing " + resource + " (data/goal): " + this.userData[resource] + "/" + this.goals[resource]);
+			}
+		}
+		if (notification === "UPDATE") {
+			Log.log('Updating Dom');
+			this.updateDom(this.fadeSpeed);
+		}
+	},
+
 	init: function(){
 		Log.log(this.name + " is in init!");
 	},
@@ -43,7 +59,7 @@ Module.register("face-rec-module", {
 	},
 
     updateName: function() {
-        this.sendSocketNotification("GET NAME", "Update");
+        this.sendSocketNotification("UPDATE", "Update");
     },
 
 	loaded: function(callback) {
