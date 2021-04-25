@@ -10,7 +10,7 @@ module.exports = NodeHelper.create({
 
     //sendSocketNotification processes request
     socketNotificationReceived: function(notification, payload) {
-            if (notification === "SET PROFILE") {
+            if (notification === "CONFIG") {
                 console.log('Initial setup request');
                 this.setProfile();
             }
