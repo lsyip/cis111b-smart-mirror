@@ -19,7 +19,11 @@ userFaceEncoding = face_recognition.face_encodings(userImage)[0]
 fingerScanner = PyFingerprint('/dev/ttyUSB0', 57600, 0xFFFFFFFF, 0x00000000)
 
 # Specify GPIO PIN numbering mode
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+# Set up the pin being used for activating the solenoid
+GPIO.setup(7, GPIO.OUT, initial - GPIO.LOW)
 
 # Initialize 2 lists for storing face details and encodings
 faceLocations = []
@@ -50,7 +54,7 @@ for faceEncoding in faceEncodings:
     """
     if match[0]:
         print("Access Granted. \nHello Alex!")
-        # TODO Activate Solenoid
+        GPIO.output(7, GPIO.HIGH)
     else:
         print("Access Denied.\nPlease Validate Fingerprint.")
         
@@ -87,6 +91,6 @@ for faceEncoding in faceEncodings:
             exit(0)
         else:
             print("Access Granted. \nHello Alex!")
-            #TODO Activate solenoid
+            GPIO.output(7, GPIO.HIGH)
     
     
